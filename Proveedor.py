@@ -1,9 +1,10 @@
 #proveedor.py
+from Producto import Lista_Productos
 class Proveedor:
-    def __init__(self, nombre_proveedor, telefono_proveedor, email_proveedor):
-        self.nombre_proveedor = nombre_proveedor
-        self.telefono_proveedor = telefono_proveedor
-        self.email_proveedor = email_proveedor
+    def __init__(self, nombre, telefono, email):
+        self.nombre = nombre
+        self.telefono = telefono
+        self.email = email
         self.productos = []
 
     def agregar_producto(self, producto):
@@ -27,14 +28,23 @@ class Proveedor:
         print(f"Precio: {producto.precio}")
 
     def mostrar_informacion(self):  #describe los datos del proveedor
-      print(f"**Proveedor:** {self.nombre_proveedor}")
-      print(f"Teléfono: {self.telefono_proveedor}")
-      print(f"Correo electrónico: {self.email_proveedor}")
+      print(f"**Proveedor:** {self.nombre}")
+      print(f"Teléfono: {self.telefono}")
+      print(f"Correo electrónico: {self.email}")
 
     def mostrar_producto(self, producto):
       if producto not in self.productos:    #verifica que el producto exista
-        raise ValueError(f"El producto {producto.nombre} no se encuentra en la lista de productos del proveedor {self.nombre_proveedor}")
+        raise ValueError(f"El producto {producto.nombre} no se encuentra en la lista de productos del proveedor {self.nombre}")
 
       print(f"**Producto:** {producto.nombre}")
       print(f"Descripción: {producto.descripcion}")
       print(f"Precio: {producto.precio}")
+
+Lista_Proveedores = [Proveedor("Maderas Anita", 3105916884, "maderas_anita@gmail.com"), 
+                    Proveedor("Lupita Baldosas", 3127167148, "LupitaBaldosas@hotmail.com"), 
+                    Proveedor("Casa Bonita", 3106172961, "CasaBonita@gmail.com"), 
+                    Proveedor("Hogares de confianza", 3017263829, "HogaresConfianza34@hotmail.com"),
+                    Proveedor("Cersei Castillo", 3728192678, "CerseiCas7000@gmail.com")]
+
+#Asignación de productos a proveedores
+Lista_Proveedores[0].agregar_producto(Lista_Productos[3])

@@ -23,3 +23,11 @@ class Categoria:
     def mostrar_informacion(self):  #da los datos de la categoria y cuantos productos contiene
       print(f"**Categoría:** {self.nombre_categoria}")
       print(f"Cantidad de productos asociados: {len(self.productos)}")
+
+Lista_Categorias = [Categoria("Construccion y Ferreteria"), 
+                   Categoria("Pisos.Pinturas y Terminaciones"), 
+                   Categoria("Herramientas y maquinaria"), 
+                   Categoria("Baño. Cocina"),
+                   Categoria("Muebles"),
+                   Categoria("Decoración. Menaje E Iluminacion"),
+                   Categoria("Aire libre")]
