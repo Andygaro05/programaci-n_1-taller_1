@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block titulo%}Technology Store{% endblock %}
+
+{% block contenido %}
+ <table align="center">
+    {% for producto in productos %}
+    <tr>
+        <td style="color: #000000;"><a href="/producto/{{producto.id}}"> {{ producto.nombre }}</a></td>
+        <td style="color: #000000; text-align: right;">${{ "{:,}".format(producto.precio) }}</td>
+        <td style="color: #000000;">| Cantidad: {{ producto.cantidad }} |</td>
+    </tr>
+    {% endfor %}
+ </table>
+{% endblock %}
