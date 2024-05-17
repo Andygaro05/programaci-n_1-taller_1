@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@1,500&display=swap');
+/* General styles for the entire website */
+body {
+    font-family: "Roboto Condensed";
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333; /* Text color */
+}
+
+.header {
+    position: relative;
+    top: 0;
+    width: 100%;
+    background-color: #0B38A0;
+    color: white;
+    z-index: 100;
+    padding: 15px;
+}
+
+.header nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #0B38A0;
+}
+
+.header nav ul li {
+    float: left;
+}
+
+.header nav ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.header nav ul li a:hover {
+    background-color: #111;
+}
+
+.content {
+    margin-top: 60px; /* Ajusta este valor si es necesario */
+    padding: 16px;
+}
+
+
+
+.sidebar {
+    float: left;
+    width: 25%;
+    background-color: #eee1;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    margin-top: 0;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+table {
+    width: 50%;
+    margin: 30px auto;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+}
+
+h1, h2, h3 {
+    margin: 5px 0;
+    color: #333; /* Ensure all headings have a non-white color */
+}
+
+/* Specific styles for the product page */
+.precio-verde {
+    color: green;
+    font-weight: bold;
+}
+
+button {
+    color: #ffff; /* Text color on buttons */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+ 
+
+a {
+    text-decoration: none;
+    color: #333; /* Ensure links have a non-white color */
+}
+
+a:hover {
+    color: #0056b3; /* Change hover color to be different but not white */
+}
+
+/* Añade estilos específicos para la tabla de proveedores */
+.proveedores-table {
+    width: 50%;
+    margin: 30px auto;
+    border-collapse: collapse;
+    background-color: #ffd700; /* Amarillo dorado */
+}
+
+.proveedores-table td {
+    padding: 10px;
+    text-align: center;
+}
+
+.proveedores-table tr:nth-child(even) {
+    background-color: #449135e1; /* Amarillo pálido para filas pares */
+}
+
+.proveedores-table tr:hover {
+    background-color: #46b846; /* Amarillo claro al pasar el cursor sobre una fila */
+}
+/* En estilos.css */
+.boton-registro {
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.boton-registro:hover {
+    background-color: #0056b3;
+}
+/* Estilos para el contenedor del formulario */
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Estilos para cada grupo de campos del formulario */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Estilos para las etiquetas de los campos del formulario */
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Estilos para los campos de entrada del formulario */
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Para incluir el padding y el borde en el ancho total */
+}
+
+/* Estilos para el botón de enviar del formulario */
+.btn-submit {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-submit:hover {
+    background-color: #0056b3;
+}
