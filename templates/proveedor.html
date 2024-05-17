@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Technology Store{% endblock %}
+
+{% block contenido %}
+    <div>
+        <td style="color: #000000;">
+            <a href="/proveedor/{{ proveedor.nombre }}">{{ proveedor.nombre }}</a>
+        </td>
+        <h3 style="color: #000000;">| Productos: {{ proveedor.productos }} |</h3>
+    </div>
+{% endblock %}

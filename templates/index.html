@@ -1,15 +1,35 @@
 {% extends 'base.html' %}
 
-{% block titulo%}Technology Store{% endblock %}
+{% block titulo%}Punto Hogar{% endblock %}
 
 {% block contenido %}
- <table align="center">
-    {% for producto in productos %}
-    <tr>
-        <td style="color: #000000;"><a href="/producto/{{producto.id}}"> {{ producto.nombre }}</a></td>
-        <td style="color: #000000; text-align: right;">${{ "{:,}".format(producto.precio) }}</td>
-        <td style="color: #000000;">| Cantidad: {{ producto.cantidad }} |</td>
-    </tr>
-    {% endfor %}
- </table>
+<div style="width: 100%; text-align: center;">
+    <table style="width: 100%; margin: 0 auto;">
+        {% for producto in productos %}
+        <tr>
+            <td style="color: #000000;"><a href="/producto/{{producto.id}}"> {{ producto.nombre }}</a></td>
+            <td style="color: #000000; text-align: right;">${{ "{:,}".format(producto.precio) }}</td>
+            <td style="color: #000000;">| Cantidad: {{ producto.cantidad }} |</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <table style="width: 100%; margin: 0 auto;">
+        <tr>
+            <td colspan="2" style="background-color: rgb(36, 209, 209); color: white; text-align: center; padding: 16px; font-family: Roboto Condensed;"><b>Proveedores</b></td>
+        </tr>
+        {% for proveedor in proveedores %}
+        <tr>
+            <td style="color: #000000;"><a href="/proveedor/{{proveedor.nombre}}"> {{ proveedor.nombre }}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div style="text-align: center;">
+        <a href="/registrar_producto" class="boton-registro">Registrar Producto</a>
+        <a href="/registrar_categoria" class="boton-registro">Registrar Categoría</a>
+        <a href="/registrar_proveedor" class="boton-registro">Registrar Proveedor</a>
+        <a href="/registrar_bodega" class="boton-registro">Registrar Bodega</a>
+    </div>
+</div>
 {% endblock %}

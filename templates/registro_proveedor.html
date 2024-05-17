@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Registrar Proveedor{% endblock %}
+
+{% block contenido %}
+<div class="form-container">
+    <h2>Registrar nuevo proveedor</h2>
+    <form action="/registrar_proveedor" method="post">
+        <div class="form-group">
+            <label for="nombre">Nombre:</label><br>
+            <input type="text" id="nombre" name="nombre" required>
+        </div>
+        <div class="form-group">
+            <label for="direccion">Dirección:</label><br>
+            <input type="text" id="direccion" name="direccion" required>
+        </div>
+        <div class="form-group">
+            <label for="telefono">Teléfono:</label><br>
+            <input type="text" id="telefono" name="telefono" required>
+        </div>
+        <button type="submit" class="btn-submit">Registrar</button>
+    </form>
+</div>
+{% endblock %}
+

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Registrar Producto{% endblock %}
+
+{% block contenido %}
+<div class="form-container">
+    <h2>Registrar nuevo producto</h2>
+    <form action="/registrar_producto" method="post">
+        <div class="form-group">
+            <label for="nombre">Nombre:</label><br>
+            <input type="text" id="nombre" name="nombre" required>
+        </div>
+        <div class="form-group">
+            <label for="descripcion">Descripción:</label><br>
+            <textarea id="descripcion" name="descripcion" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="precio">Precio:</label><br>
+            <input type="number" id="precio" name="precio" min="0" step="0.01" required>
+        </div>
+        <div class="form-group">
+            <label for="stock">Stock inicial:</label><br>
+            <input type="number" id="stock" name="stock" min="0" required>
+        </div>
+        <div class="form-group">
+            <label for="categoria">Categoría:</label><br>
+            <select id="categoria" name="categoria" required>
+                <option value="Construcción">Construcción</option>
+                <option value="Electrodomésticos">Electrodomésticos</option>
+                <!-- Agrega más opciones según tus necesidades -->
+            </select>
+        </div>
+        <button type="submit" class="btn-submit">Registrar</button>
+    </form>
+</div>
+{% endblock %}
+

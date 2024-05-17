@@ -1,11 +1,13 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="es">
     <head>
         <title>{% block titulo %}{% endblock %}</title>
-        <link rel = "stylesheet" href="{{ url_for('static', filename = 'css/estilo.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
     </head>
     <body>
-        <img src="{{ url_for('static', filename = 'imagenes/titulo.png')}}" class ="center">
+        <div class="header">
+            <a style = "color: #ffff" href="/"> Punto Hogar</a>
+        </div>
         {% block contenido %}{% endblock %}
     </body>
 </html>
