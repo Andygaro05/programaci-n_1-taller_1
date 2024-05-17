@@ -34,7 +34,7 @@ body {
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 20px 30px;
     text-decoration: none;
 }
 
@@ -43,7 +43,7 @@ body {
 }
 
 .content {
-    margin-top: 60px; /* Ajusta este valor si es necesario */
+    margin-top: 0px; /* Ajusta este valor si es necesario */
     padding: 16px;
 }
 
@@ -98,6 +98,7 @@ h1, h2, h3 {
 }
 
 button {
+    background-color: #0056b3;
     color: #ffff; /* Text color on buttons */
     border: none;
     padding: 10px 20px;
@@ -140,7 +141,7 @@ a:hover {
 .boton-registro {
     display: inline-block;
     padding: 10px 20px;
-    color: white;
+    color: #46b846;
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
