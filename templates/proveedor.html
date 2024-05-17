@@ -3,10 +3,18 @@
 {% block titulo %}Technology Store{% endblock %}
 
 {% block contenido %}
-    <div>
-        <td style="color: #000000;">
-            <a href="/proveedor/{{ proveedor.nombre }}">{{ proveedor.nombre }}</a>
-        </td>
-        <h3 style="color: #000000;">| Productos: {{ proveedor.productos }} |</h3>
+<div style="text-align: center; color: #000000;">
+    <table align="left">
+        <tr>
+            <td>
+                <a href="{{ url_for('ruta_raiz') }}"><button>Inicio</button></a>
+            </td>
+        </tr>
+        <h1>
+            <a href="/proveedor/{{ proveedor.nombre }}" style="color: #000000; text-decoration: none;">
+                {{ proveedor.nombre }}
+            </a>
+        </h1>
+        <h3>| Productos: {{ proveedor.productos }} |</h3>
     </div>
 {% endblock %}
