@@ -52,9 +52,6 @@ def registrar_producto():
     return redirect("/") 
 
 
-# Otras importaciones y configuraciones...
-# Otras importaciones y configuraciones...
-
 # Ruta para mostrar la página de registro de productos
 @app.route("/registrar_producto", methods=["GET"])
 def mostrar_formulario_registro_producto():
@@ -74,9 +71,6 @@ def mostrar_formulario_registro_proveedor():
 @app.route("/registrar_bodega", methods=["GET"])
 def mostrar_formulario_registro_bodega():
     return render_template("registro_bodega.html")
-
-# Otras rutas y configuraciones...
-
 
 # Otras importaciones y configuraciones...
 
@@ -122,9 +116,6 @@ def retirar_stock(producto_id):
 def calcular_valor_total_stock():
     valor_total = sum(producto.precio * producto.cantidad for producto in Lista_Productos)
     return render_template("valor_total_stock.html", valor_total=valor_total)
-
-# Otras rutas y configuraciones...
-
 
 
 #Programa principal
