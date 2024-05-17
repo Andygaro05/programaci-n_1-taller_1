@@ -3,6 +3,9 @@ class Categoria:
         self.nombre_categoria = nombre_categoria
         self.productos = []  # Lista de productos asociados a la categoría pq producto no conoce de categoria
 
+    def __repr__(self):
+        return f"{self.nombre_categoria}"
+
     def agregar_producto(self, producto):
         if producto not in self.productos:
             self.productos.append(producto)

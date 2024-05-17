@@ -72,8 +72,6 @@ def mostrar_formulario_registro_proveedor():
 def mostrar_formulario_registro_bodega():
     return render_template("registro_bodega.html")
 
-# Otras importaciones y configuraciones...
-
 # Ruta para agregar stock a un producto existente
 @app.route("/agregar_stock/<int:producto_id>", methods=["POST"])
 def agregar_stock(producto_id):

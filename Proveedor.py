@@ -40,6 +40,7 @@ class Proveedor:
       print(f"Descripción: {producto.descripcion}")
       print(f"Precio: {producto.precio}")
 
+#Creación de los proveedores
 Lista_Proveedores = [Proveedor("Maderas Anita", 3105916884, "maderas_anita@gmail.com"), 
                     Proveedor("Lupita Baldosas", 3127167148, "LupitaBaldosas@hotmail.com"), 
                     Proveedor("Casa Bonita", 3106172961, "CasaBonita@gmail.com"), 
@@ -48,3 +49,7 @@ Lista_Proveedores = [Proveedor("Maderas Anita", 3105916884, "maderas_anita@gmail
 
 #Asignación de productos a proveedores
 Lista_Proveedores[0].agregar_producto(Lista_Productos[3])
+Lista_Proveedores[2].agregar_producto(Lista_Productos[1])
+Lista_Proveedores[2].agregar_producto(Lista_Productos[0])
+Lista_Proveedores[3].agregar_producto(Lista_Productos[2])
+Lista_Proveedores[4].agregar_producto(Lista_Productos[4])
