@@ -1,7 +1,10 @@
 class Categoria:
+    id = 0
     def __init__(self, nombre_categoria):
         self.nombre_categoria = nombre_categoria
         self.productos = []  # Lista de productos asociados a la categoría pq producto no conoce de categoria
+        self.id = Categoria.id
+        Categoria.id += 1
 
     def __repr__(self):
         return f"{self.nombre_categoria}"
@@ -27,10 +30,13 @@ class Categoria:
       print(f"**Categoría:** {self.nombre_categoria}")
       print(f"Cantidad de productos asociados: {len(self.productos)}")
 
-Lista_Categorias = [Categoria("Construccion y Ferreteria"), 
-                   Categoria("Pisos.Pinturas y Terminaciones"), 
-                   Categoria("Herramientas y maquinaria"), 
-                   Categoria("Baño. Cocina"),
-                   Categoria("Muebles"),
-                   Categoria("Decoración. Menaje E Iluminacion"),
-                   Categoria("Aire libre")]
+    def ver_id(self):
+        print(f"{self.nombre_categoria}: ID {self.id}")
+
+categorias = [Categoria("Construccion y Ferreteria"), 
+              Categoria("Pisos, Pinturas y Terminaciones"), 
+              Categoria("Herramientas y maquinaria"), 
+              Categoria("Baño y Cocina"),
+              Categoria("Muebles"),
+              Categoria("Decoración, Menaje E Iluminacion"),
+              Categoria("Aire libre")]

@@ -1,8 +1,8 @@
-from Proveedor import Proveedor, Lista_Proveedores
-from Producto import Producto, Lista_Productos
-from Categoria import Categoria, Lista_Categorias
-from Bodega import Bodega
-from flask import Flask, render_template, redirect, request
+from proveedor import Proveedor, proveedores
+from producto import Producto, productos
+from categoria import Categoria, categorias
+from bodega import Bodega
+from flask import Flask, render_template, redirect, request, flash
 
 #aplicación
 app = Flask(__name__)
@@ -10,12 +10,12 @@ app = Flask(__name__)
 #Rutas
 @app.route("/")
 def ruta_raiz():
-    return render_template("index.html", productos = Lista_Productos, proveedores = Lista_Proveedores)
+    return render_template("index.html", productos = productos, proveedores = proveedores)
 
 
 @app.route("/producto/<int:pid>")
 def ruta_producto(pid):
-    for producto in Lista_Productos:
+    for producto in productos:
         if pid == producto.id:
             return render_template("producto.html", producto=producto)
     return redirect("/")
@@ -23,7 +23,7 @@ def ruta_producto(pid):
 
 @app.route("/proveedor/<name>")
 def ruta_proveedor(name):
-    for proveedor in Lista_Proveedores:
+    for proveedor in proveedores:
         if name == proveedor.nombre:
             return render_template("proveedor.html", proveedor=proveedor)
     return redirect("/")
@@ -37,17 +37,17 @@ def registrar_producto():
     categoria_nombre = request.form.get("categoria")
     
     # Buscar la categoría por su nombre
-    categoria = next((c for c in Lista_Categorias if c.nombre_categoria == categoria_nombre), None)
+    categoria = next((c for c in categorias if c.nombre_categoria == categoria_nombre), None)
     
     if categoria is None:
         return "Error: La categoría no existe"
     
     # Generar un nuevo ID para el producto
-    nuevo_id = len(Lista_Productos) + 1
+    nuevo_id = len(productos) + 1
     
     # Crear una nueva instancia de Producto y agregarla a la lista de productos
     nuevo_producto = Producto(id = nuevo_id, nombre = nombre, descripcion = descripcion, precio = precio, categoria = categoria)
-    Lista_Productos.append(nuevo_producto)
+    productos.append(nuevo_producto)
     
     return redirect("/") 
 
@@ -78,7 +78,7 @@ def agregar_stock(producto_id):
     cantidad = int(request.form["cantidad"])
 
     # Buscar el producto por su ID
-    for producto in Lista_Productos:
+    for producto in productos:
         if producto.id == producto_id:
             producto.cantidad += cantidad
             # Redirigir a la página de producto con un mensaje de éxito
@@ -94,7 +94,7 @@ def retirar_stock(producto_id):
     cantidad = int(request.form["cantidad"])
 
     # Buscar el producto por su ID
-    for producto in Lista_Productos:
+    for producto in productos:
         if producto.id == producto_id:
             if producto.cantidad >= cantidad:
                 producto.cantidad -= cantidad
@@ -112,7 +112,7 @@ def retirar_stock(producto_id):
 # Ruta para calcular el valor total del stock
 @app.route("/valor_total_stock", methods=["GET"])
 def calcular_valor_total_stock():
-    valor_total = sum(producto.precio * producto.cantidad for producto in Lista_Productos)
+    valor_total = sum(producto.precio * producto.cantidad for producto in productos)
     return render_template("valor_total_stock.html", valor_total=valor_total)
 
 

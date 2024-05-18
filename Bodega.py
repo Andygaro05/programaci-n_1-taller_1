@@ -1,11 +1,14 @@
-from Producto import Lista_Productos
+from producto import productos
 
 class Bodega:
+    id = 0
     def __init__(self, nombre_bodega, direccion_bodega, capacidad_maxima):
         self.nombre_bodega = nombre_bodega
         self.direccion_bodega = direccion_bodega
         self.capacidad_maxima = capacidad_maxima
         self.productos = []
+        self.id = Bodega.id
+        Bodega.id += 1
 
     def agregar_producto(self, producto, cantidad): # Agrega un producto a la bodega, especificando la cantidad a ingresar.
 
@@ -71,16 +74,19 @@ class Bodega:
         print(f"Capacidad máxima: {self.capacidad_maxima} unidades")
         print(f"Cantidad actual de productos: {len(self.productos)}")
 
+    def ver_id(self):
+        print(f"{self.nombre_bodega}: ID {self.id}")
+
 #Creación de bodegas
-Lista_bodega = [Bodega("MaximBog", "Cali, Calle 104 #90-88", 30), 
+bodegas = [Bodega("MaximBog", "Cali, Calle 104 #90-88", 30), 
                 Bodega("Sin Limites", "Cali, Cra 13 #45-52", 50), 
                 Bodega("Orenta", "Cali, Calle 50 #106-99", 20),
                 Bodega("De Norte a Sur", "Cali, Cra 17 #10-20", 13),
                 Bodega("Samelene", "Cali Cra 25 #11-25", 40)]
 
 #Adición de productos en la bodega
-Lista_bodega[0].agregar_producto(Lista_Productos[0], 5)
-Lista_bodega[1].agregar_producto(Lista_Productos[1], 12)
-Lista_bodega[2].agregar_producto(Lista_Productos[2], 10)
-Lista_bodega[3].agregar_producto(Lista_Productos[3], 2)
-Lista_bodega[4].agregar_producto(Lista_Productos[4], 17)
+bodegas[0].agregar_producto(productos[0], 5)
+bodegas[1].agregar_producto(productos[1], 12)
+bodegas[2].agregar_producto(productos[2], 10)
+bodegas[3].agregar_producto(productos[3], 2)
+bodegas[4].agregar_producto(productos[4], 17)
