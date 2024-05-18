@@ -5,7 +5,7 @@
 {% block contenido %}
 <div class="form-container">
     <h2>Registrar nuevo producto</h2>
-    <form action="/registrar_producto" method="post">
+    <form action="/registrar_producto" method="POST">
         <div class="form-group">
             <label for="nombre">Nombre:</label><br>
             <input type="text" id="nombre" name="nombre" required>
@@ -25,9 +25,8 @@
         <div class="form-group">
             <label for="categoria">Categoría:</label><br>
             <select id="categoria" name="categoria" required>
-                <option value="Construcción">Construcción</option>
+                <option value="Construccion y Ferreteria">Construccion y Ferreteria</option>
                 <option value="Electrodomésticos">Electrodomésticos</option>
-                <!-- Agrega más opciones según tus necesidades -->
             </select>
         </div>
         <button type="submit" class="btn-submit">Registrar</button>

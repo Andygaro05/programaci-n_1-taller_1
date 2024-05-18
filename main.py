@@ -2,7 +2,7 @@ from Proveedor import Proveedor, Lista_Proveedores
 from Producto import Producto, Lista_Productos
 from Categoria import Categoria, Lista_Categorias
 from Bodega import Bodega
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request
 
 #aplicación
 app = Flask(__name__)
@@ -46,7 +46,7 @@ def registrar_producto():
     nuevo_id = len(Lista_Productos) + 1
     
     # Crear una nueva instancia de Producto y agregarla a la lista de productos
-    nuevo_producto = Producto(nuevo_id, nombre, descripcion, precio, stock, categoria)
+    nuevo_producto = Producto(id = nuevo_id, nombre = nombre, descripcion = descripcion, precio = precio, categoria = categoria)
     Lista_Productos.append(nuevo_producto)
     
     return redirect("/") 
