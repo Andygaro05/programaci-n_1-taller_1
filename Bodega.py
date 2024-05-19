@@ -78,11 +78,11 @@ class Bodega:
         print(f"{self.nombre_bodega}: ID {self.id}")
 
 #Creación de bodegas
-bodegas = [Bodega("MaximBog", "Cali, Calle 104 #90-88", 30), 
-                Bodega("Sin Limites", "Cali, Cra 13 #45-52", 50), 
-                Bodega("Orenta", "Cali, Calle 50 #106-99", 20),
-                Bodega("De Norte a Sur", "Cali, Cra 17 #10-20", 13),
-                Bodega("Samelene", "Cali Cra 25 #11-25", 40)]
+bodegas = [Bodega("MaximBog", "Cali, Calle 104 #90-88", 300), 
+                Bodega("Sin Limites", "Cali, Cra 13 #45-52", 500), 
+                Bodega("Orenta", "Cali, Calle 50 #106-99", 200),
+                Bodega("De Norte a Sur", "Cali, Cra 17 #10-20", 130),
+                Bodega("Samelene", "Cali Cra 25 #11-25", 400)]
 
 #Adición de productos en la bodega
 bodegas[0].agregar_producto(productos[0], 5)
