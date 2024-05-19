@@ -1,7 +1,8 @@
+import os
 from proveedor import Proveedor, proveedores
 from producto import Producto, productos
 from categoria import Categoria, categorias
-from bodega import Bodega
+from bodega import Bodega, bodegas
 from flask import Flask, render_template, redirect, request, flash
 
 #aplicación
@@ -12,7 +13,7 @@ app = Flask(__name__)
 def ruta_raiz():
     return render_template("index.html", productos = productos, proveedores = proveedores)
 
-
+#Página de producto
 @app.route("/producto/<int:pid>")
 def ruta_producto(pid):
     for producto in productos:
@@ -20,7 +21,7 @@ def ruta_producto(pid):
             return render_template("producto.html", producto=producto)
     return redirect("/")
     
-
+#Página de proveedor
 @app.route("/proveedor/<name>")
 def ruta_proveedor(name):
     for proveedor in proveedores:
@@ -28,39 +29,68 @@ def ruta_proveedor(name):
             return render_template("proveedor.html", proveedor=proveedor)
     return redirect("/")
 
+#Configuración de la librería para guardar las imagenes que se suban en la página de registro de productos
+UPLOAD_FOLDER = 'static/fotos'
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+#Página para registrar productos
 @app.route("/registrar_producto", methods=["POST"])
 def registrar_producto():
     nombre = request.form.get("nombre")
     descripcion = request.form.get("descripcion")
     precio = float(request.form.get("precio"))
-    stock = int(request.form.get("stock"))
+    cantidad = int(request.form.get("stock"))
     categoria_nombre = request.form.get("categoria")
-    
+    bodega_asignada = request.form.get("bodega")
+    foto = request.files.get("foto")
+
+    if foto and allowed_file(foto.filename):
+        filename = foto.filename
+        filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+        foto.save(filepath)
+    else:
+        return "Error: El archivo no es válido"
+
     # Buscar la categoría por su nombre
     categoria = next((c for c in categorias if c.nombre_categoria == categoria_nombre), None)
     
     if categoria is None:
         return "Error: La categoría no existe"
     
-    # Generar un nuevo ID para el producto
-    nuevo_id = len(productos) + 1
-    
     # Crear una nueva instancia de Producto y agregarla a la lista de productos
-    nuevo_producto = Producto(id = nuevo_id, nombre = nombre, descripcion = descripcion, precio = precio, categoria = categoria)
+    nuevo_producto = Producto(nombre=nombre, descripcion=descripcion, precio=precio, categoria=categoria)
     productos.append(nuevo_producto)
     
-    return redirect("/") 
+    #Asignarle a una bodega el producto
+    for bodega in bodegas:
+        if bodega.nombre_bodega == bodega_asignada:
+            bodega.agregar_producto(nuevo_producto, cantidad)
 
+    return redirect("/")
 
-# Ruta para mostrar la página de registro de productos
 @app.route("/registrar_producto", methods=["GET"])
 def mostrar_formulario_registro_producto():
-    return render_template("registro_producto.html")
+    return render_template("registro_producto.html", categorias = categorias, bodegas = bodegas)
+
+@app.route("/registrar_categoria", methods = ["POST"])
+def registro_categoria():
+    nombre = request.form.get("nombre")
+
+    nueva_categoria = Categoria(nombre_categoria= nombre)
+    categorias.append(nueva_categoria)
+
+    return redirect("/")
 
 # Ruta para mostrar la página de registro de categorías
 @app.route("/registrar_categoria", methods=["GET"])
 def mostrar_formulario_registro_categoria():
-    return render_template("registro_categoria.html")
+    return render_template("registrar_categoria.html")
 
 # Ruta para mostrar la página de registro de proveedores
 @app.route("/registrar_proveedor", methods=["GET"])

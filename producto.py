@@ -1,7 +1,7 @@
 from categoria import categorias
 
 class Producto:
-    id = 0
+    id = 1
     def __init__(self, nombre, descripcion, precio, categoria=None):
         self.id = Producto.id
         Producto.id += 1
