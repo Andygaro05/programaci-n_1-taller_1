@@ -78,10 +78,19 @@ def registrar_producto():
 def mostrar_formulario_registro_producto():
     return render_template("registro_producto.html", categorias = categorias, bodegas = bodegas)
 
+@app.route("/registrar_categoria", methods = ["POST"])
+def registro_categoria():
+    nombre = request.form.get("nombre")
+
+    nueva_categoria = Categoria(nombre_categoria= nombre)
+    categorias.append(nueva_categoria)
+
+    return redirect("/")
+
 # Ruta para mostrar la página de registro de categorías
 @app.route("/registrar_categoria", methods=["GET"])
 def mostrar_formulario_registro_categoria():
-    return render_template("registro_categoria.html")
+    return render_template("registrar_categoria.html")
 
 # Ruta para mostrar la página de registro de proveedores
 @app.route("/registrar_proveedor", methods=["GET"])
