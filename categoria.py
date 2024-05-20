@@ -1,5 +1,5 @@
 class Categoria:
-    id = 0
+    id = 1
     def __init__(self, nombre_categoria, descripcion):
         self.nombre_categoria = nombre_categoria
         self.descripcion = descripcion

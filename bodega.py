@@ -1,7 +1,7 @@
 from producto import productos
 
 class Bodega:
-    id = 0
+    id = 1
     def __init__(self, nombre_bodega, direccion_bodega, capacidad_maxima):
         self.nombre_bodega = nombre_bodega
         self.direccion_bodega = direccion_bodega
