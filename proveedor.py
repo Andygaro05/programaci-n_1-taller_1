@@ -1,14 +1,17 @@
 #proveedor.py
 from producto import productos
 class Proveedor:
-    id = 0
-    def __init__(self, nombre, telefono, email):
+    id = 1
+    def __init__(self, nombre, telefono, direccion):
         self.nombre = nombre
         self.telefono = telefono
-        self.email = email
+        self.direccion = direccion
         self.productos = []
         self.id = Proveedor.id
         Proveedor.id += 1
+
+    def __repr__(self):
+        return f"{self.productos}"
 
     def agregar_producto(self, producto):
         if producto not in self.productos:
@@ -47,15 +50,15 @@ class Proveedor:
         print(f"{self.nombre}: ID {self.id}")
 
 #Creación de los proveedores
-proveedores = [Proveedor("Maderas Anita", 3105916884, "maderas_anita@gmail.com"), 
+proveedores = [Proveedor("Maderas Anita", 3123800910, "maderas_anita@gmail.com"), 
                     Proveedor("Lupita Baldosas", 3127167148, "LupitaBaldosas@hotmail.com"), 
                     Proveedor("Casa Bonita", 3106172961, "CasaBonita@gmail.com"), 
                     Proveedor("Hogares de confianza", 3017263829, "HogaresConfianza34@hotmail.com"),
                     Proveedor("Cersei Castillo", 3728192678, "CerseiCas7000@gmail.com")]
 
 #Asignación de productos a proveedores
-proveedores[0].agregar_producto(proveedores[3])
-proveedores[2].agregar_producto(proveedores[1])
-proveedores[2].agregar_producto(proveedores[0])
-proveedores[3].agregar_producto(proveedores[2])
-proveedores[4].agregar_producto(proveedores[4])
+proveedores[0].agregar_producto(productos[3])
+proveedores[2].agregar_producto(productos[1])
+proveedores[2].agregar_producto(productos[0])
+proveedores[3].agregar_producto(productos[2])
+proveedores[4].agregar_producto(productos[4])
