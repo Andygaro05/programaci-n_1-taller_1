@@ -25,8 +25,6 @@ class Bodega:
         producto_existente.cantidad += cantidad
 
     def retirar_producto(self, producto, cantidad): #Retira un producto de la bodega, especificando la cantidad a retirar.
-      if cantidad <= 0:
-          raise ValueError("La cantidad debe ser un número positivo")
 
       producto_existente = self.obtener_producto(producto)
       if producto_existente is None:

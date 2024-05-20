@@ -198,6 +198,47 @@ def calcular_valor_total_stock():
     return render_template("valor_total_stock.html", valor_total=valor_total, valor_stock = valor_stock, productos = productos, longitud_lista = longitud_lista)
 
 
+"""
+@app.route("/registrar_proveedor", methods= ["POST"])
+def registro_proveedor():
+    nombre = request.form.get("nombre")
+    telefono = request.form.get("telefono")
+    direccion = request.form.get("email")
+
+    nuevo_proveedor = Proveedor(nombre= nombre, telefono= telefono, direccion= direccion)
+    proveedores.append(nuevo_proveedor)
+
+    return redirect("/")
+
+# Ruta para mostrar la página de registro de proveedores
+@app.route("/registrar_proveedor", methods=["GET"])
+def mostrar_formulario_registro_proveedor():
+    return render_template("registro_proveedor.html")
+"""
+
+@app.route("/retiro_stock", methods=["POST"])
+def retirar_producto():
+    bodega_escogida = request.form.get("bodega")
+    nombre_producto = request.form.get("nombre")
+    cantidad = int(request.form.get("cantidad"))
+
+    for bodega in bodegas:
+        if bodega.nombre_bodega == bodega_escogida:
+            producto = next((p for p in bodega.productos if p.nombre == nombre_producto), None)
+            if producto:
+                try:
+                    bodega.retirar_producto(producto, cantidad)
+                    print(f"Producto {nombre_producto} retirado")
+                except ValueError as e:
+                    print(e)
+            break
+
+    return redirect("/")
+
+@app.route("/producto/retirar_stock", methods=["GET"])
+def mostrar_formulario_retiro_prod():
+    return render_template("retirar_producto.html", bodegas=bodegas)
+
 #Programa principal
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)

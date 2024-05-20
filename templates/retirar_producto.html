@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Retirar Producto{% endblock %}
+
+{% block contenido %}
+<div class="form-container">
+    <h2>Retirar producto</h2>
+    <form action="/retiro_stock" method="POST">
+        <div class="form-group">
+            <label for="bodega">Bodega de la cual se va a retirar:</label><br>
+            <select id="bodega" name="bodega" onchange="updateProducts()" required>
+                {% for bodega in bodegas %}
+                    <option value="{{ bodega.nombre_bodega }}" data-id="{{ bodega.id }}">{{ bodega.nombre_bodega }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="nombre">Nombre del producto:</label><br>
+            <select id="nombre" name="nombre" required>
+                <option value="">Selecciona una bodega primero</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="cantidad">Cantidad:</label><br>
+            <input type="number" id="cantidad" name="cantidad" min="1" required>
+        </div>
+        <button type="submit" class="btn-submit">Retirar</button>
+    </form>
+</div>
+
+<script>
+function updateProducts() {
+    var bodegaSelect = document.getElementById("bodega");
+    var bodegaId = bodegaSelect.options[bodegaSelect.selectedIndex].getAttribute("data-id");
+    var nombreSelect = document.getElementById("nombre");
+    
+    // Clear existing options
+    nombreSelect.innerHTML = '<option value="">Selecciona un producto</option>';
+    
+    // Fetch products for the selected bodega
+    fetch('/productos_por_bodega/' + bodegaId)
+        .then(response => response.json())
+        .then(data => {
+            data.productos.forEach(producto => {
+                var option = document.createElement("option");
+                option.value = producto.nombre;
+                option.text = producto.nombre + ' (' + producto.cantidad + ' unidades)';
+                nombreSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error fetching products:', error));
+}
+</script>
+{% endblock %}
