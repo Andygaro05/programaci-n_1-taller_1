@@ -3,6 +3,19 @@
 {% block titulo %}Valor Total del Stock{% endblock %}
 
 {% block contenido %}
-<h2>Valor Total del Stock</h2>
-<p>El valor total del stock es: ${{ valor_total }}</p>
+<div style="text-align: center;">
+    <img src="/static/imagenes/valor.png" style="width: 10%;">
+    <h2>Valor Total del Stock</h2>
+    <h2 style="color: darkgreen;">El valor total del stock es: ${{ "{:,}".format(valor_total) }}</h2>
+    
+    <!-- Espacio en blanco -->
+    <div style="height: 20px;"></div>
+
+    <h3>El precio total de los productos es:</h3>
+    {% for i in range(longitud_lista) %}
+        <h3><a href="/producto/{{productos[i].id}}" style="color: #000000";> {{ productos[i].nombre }}</a>: ${{ "{:,}".format(valor_stock[i]) }}</h3>
+    {% endfor %}
+</div>
 {% endblock %}
+
+<a href="/proveedor/{{ proveedor.nombre }}" style="color: #000000; text-decoration: none;">{{ proveedor.nombre }}</a>

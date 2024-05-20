@@ -192,8 +192,10 @@ def retirar_stock(producto_id):
 # Ruta para calcular el valor total del stock
 @app.route("/valor_total_stock", methods=["GET"])
 def calcular_valor_total_stock():
-    valor_total = sum(producto.precio * producto.cantidad for producto in productos)
-    return render_template("valor_total_stock.html", valor_total=valor_total)
+    valor_stock = [producto.precio * producto.cantidad for producto in productos]
+    valor_total = sum(valor_stock)
+    longitud_lista = len(valor_stock)
+    return render_template("valor_total_stock.html", valor_total=valor_total, valor_stock = valor_stock, productos = productos, longitud_lista = longitud_lista)
 
 
 #Programa principal
