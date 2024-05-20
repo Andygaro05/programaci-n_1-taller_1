@@ -124,6 +124,34 @@ def registro_bodega():
 def mostrar_formulario_registro_bodega():
     return render_template("registro_bodega.html")
 
+
+#Página de categoria
+@app.route("/categoria/<int:pid>")
+def ruta_categoria(pid):
+    for categoria in categorias:
+        if pid == categoria.id:
+            return render_template("categoria.html", categoria = categoria)
+    return redirect("/")
+
+
+#Página de bodega
+@app.route("/bodega/<int:pid>")
+def ruta_bodega(pid):
+    for bodega in bodegas:
+        if pid == bodega.id:
+            return render_template("bodega.html", bodega = bodega, productos = productos)
+    return redirect("/")
+    
+
+
+
+
+
+
+
+
+
+
 # Ruta para agregar stock a un producto existente
 @app.route("/agregar_stock/<int:producto_id>", methods=["POST"])
 def agregar_stock(producto_id):

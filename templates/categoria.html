@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Punto Hogar{% endblock %}
+
+{% block contenido %}
+<div style="text-align: left;">
+    <a href="{{ url_for('ruta_raiz') }}"><button>Inicio</button></a>
+</div>
+<div style="text-align: center; color: #000000;">
+    <table align="center">
+        <img src="/static/imagenes/categoria.jpg" width="3%">
+        <h1>
+            <a href="/categoria/{{ categoria.nombre_categoria }}" style="color: #000000; text-decoration: none;">
+                {{ categoria.nombre_categoria }}</a>
+        </h1>
+    </table>
+        <tr>
+            <td>
+                <h2>Descripción: {{ categoria.descripcion }}</h2>
+            </td>
+        </tr>
+            <h2>Productos: {{ categoria.productos }} </h2>
+    </div>
+{% endblock %}
