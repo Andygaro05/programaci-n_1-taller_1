@@ -22,10 +22,10 @@ def ruta_producto(pid):
     return redirect("/")
     
 #Página de proveedor
-@app.route("/proveedor/<name>")
-def ruta_proveedor(name):
+@app.route("/proveedor/<int:pid>")
+def ruta_proveedor(pid):
     for proveedor in proveedores:
-        if name == proveedor.nombre:
+        if pid == proveedor.id:
             return render_template("proveedor.html", proveedor=proveedor)
     return redirect("/")
 
@@ -81,8 +81,9 @@ def mostrar_formulario_registro_producto():
 @app.route("/registrar_categoria", methods = ["POST"])
 def registro_categoria():
     nombre = request.form.get("nombre")
+    descripcion = request.form.get("descripcion")
 
-    nueva_categoria = Categoria(nombre_categoria= nombre)
+    nueva_categoria = Categoria(nombre_categoria= nombre, descripcion= descripcion)
     categorias.append(nueva_categoria)
 
     return redirect("/")
@@ -92,10 +93,31 @@ def registro_categoria():
 def mostrar_formulario_registro_categoria():
     return render_template("registrar_categoria.html")
 
+@app.route("/registrar_proveedor", methods= ["POST"])
+def registro_proveedor():
+    nombre = request.form.get("nombre")
+    telefono = request.form.get("telefono")
+    direccion = request.form.get("email")
+
+    nuevo_proveedor = Proveedor(nombre= nombre, telefono= telefono, direccion= direccion)
+    proveedores.append(nuevo_proveedor)
+
+    return redirect("/")
+
 # Ruta para mostrar la página de registro de proveedores
 @app.route("/registrar_proveedor", methods=["GET"])
 def mostrar_formulario_registro_proveedor():
     return render_template("registro_proveedor.html")
+
+@app.route("/registrar_bodega", methods = ["POST"])
+def registro_bodega():
+    nombre = request.form.get("nombre")
+    direccion = request.form.get("ubicacion")
+    capacidad = request.form.get("capacidad_maxima")
+
+    nueva_bodega = Bodega(nombre_bodega= nombre, direccion_bodega= direccion, capacidad_maxima= capacidad)
+    bodegas.append(nueva_bodega)
+    return redirect("/")
 
 # Ruta para mostrar la página de registro de bodegas
 @app.route("/registrar_bodega", methods=["GET"])
