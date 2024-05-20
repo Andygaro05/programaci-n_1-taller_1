@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block titulo %}Technology Store{% endblock %}
+{% block titulo %}Punto Hogar{% endblock %}
 
 {% block contenido %}
 <div style="text-align: left;">
@@ -8,19 +8,21 @@
 </div>
 <div style="text-align: center; color: #000000;">
     <table align="center">
-        <img src="/static/imagenes/proveedor.png" width="10%">
+        <img src="/static/imagenes/proveedor.png" width="15%">
         <h1>
-            <a href="/proveedor/{{ proveedor.nombre }}" style="color: #000000; text-decoration: none;">
-                {{ proveedor.nombre }}</a>
+            <a href="/proveedor/{{ proveedor.nombre }}" style="color: #000000; text-decoration: none;">{{ proveedor.nombre }}</a>
         </h1>
-    </table>
-        <h2>Información básica:</h2>
         <tr>
             <td>
+                <h2 style="color: #535059;">Información básica:</h2>
                 <h3>Número de contacto: {{ proveedor.telefono }}</h3>
-                <h3>Correo electrónico{{ proveedor.direccion }}</h3>
+                <h3>Correo electrónico: {{ proveedor.direccion }}</h3>
+                <h3>Productos: </h3>
+                {% for producto in proveedor.productos %}
+                <h3 style="color: #000000; padding: 15px;"> <a href="/producto/{{ producto.id }}" style="color: red;"> {{producto.nombre }} </a> </h3>
+                {% endfor %}
             </td>
         </tr>
-            <h3>Productos: {{ proveedor.productos }} </h3>
+    </table>
     </div>
 {% endblock %}
