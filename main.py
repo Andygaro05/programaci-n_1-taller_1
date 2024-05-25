@@ -243,24 +243,6 @@ def retirar_producto():
 
     return redirect("/")
 
-"""
-@app.route("/registrar_proveedor", methods= ["POST"])
-def registro_proveedor():
-    nombre = request.form.get("nombre")
-    telefono = request.form.get("telefono")
-    direccion = request.form.get("email")
-
-    nuevo_proveedor = Proveedor(nombre= nombre, telefono= telefono, direccion= direccion)
-    proveedores.append(nuevo_proveedor)
-
-    return redirect("/")
-
-# Ruta para mostrar la página de registro de proveedores
-@app.route("/registrar_proveedor", methods=["GET"])
-def mostrar_formulario_registro_proveedor():
-    return render_template("registro_proveedor.html")
-"""
-
 #Programa principal
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
