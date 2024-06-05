@@ -115,7 +115,7 @@ def registro_proveedor():
     return redirect("/")
 
 #registro bodega
-@app.route("/registrar_bodega", methods = ["GET"])
+@app.route("/registrar_bodega", methods = ["POST"])
 def registro_bodega():
     nombre = request.form.get("nombre")
     direccion = request.form.get("ubicacion")
@@ -146,44 +146,12 @@ def gestionar_stock():
     else:
         return redirect("/")
 
-
-
-@app.route("/stock_bodega", methods=["GET"])
-def stock_bodega():
-    # Renderiza la página inicial del formulario
-    return render_template("stock_bodega.html", bodegas=bodegas, productos=productos)
-
-
-# Ruta para mostrar la página de registro de categorías
-@app.route("/registrar_categoria", methods=["GET"])
-def mostrar_formulario_registro_categoria():
-    return render_template("registrar_categoria.html")
-
-# Ruta para mostrar la página de registro de productos
-@app.route("/registrar_producto", methods=["GET"])
-def mostrar_formulario_registro_producto():
-    return render_template("registro_producto.html", categorias = categorias, bodegas = bodegas)
-
-# Ruta para mostrar la página de registro de proveedores
-@app.route("/registrar_proveedor", methods=["GET"])
-def mostrar_formulario_registro_proveedor():
-    return render_template("registro_proveedor.html")
-
-# Ruta para mostrar la página de registro de bodegas
-@app.route("/registrar_bodega", methods=["GET"])
-def mostrar_formulario_registro_bodega():
-    return render_template("registro_bodega.html")
-
-@app.route("/producto/retirar_stock", methods=["GET"])
-def mostrar_formulario_retiro_prod():
-    return render_template("retirar_producto.html", bodegas=bodegas)
-
 #MANEJO DE STOCK
+#añadir o eliminar productos
+@app.route("/gestion_stock_bodega/<int:producto_id>", methods= ["GET","POST"])
+def productos_bodega(producto_id):
 # Ruta para agregar stock a un producto existente
-@app.route("/agregar_stock/<int:producto_id>", methods=["POST"])
-def agregar_stock(producto_id):
     cantidad = int(request.form["cantidad"])
-
     # Buscar el producto por su ID
     for producto in productos:
         if producto.id == producto_id:
@@ -215,6 +183,36 @@ def retirar_stock(producto_id):
     # Si el producto no se encuentra, redirigir a la página principal con un mensaje de error
     flash("Producto no encontrado", "error")
     return redirect("/")
+
+@app.route("/stock_bodega", methods=["GET"])
+def stock_bodega():
+    # Renderiza la página inicial del formulario
+    return render_template("stock_bodega.html", bodegas=bodegas, productos=productos)
+
+
+# Ruta para mostrar la página de registro de categorías
+@app.route("/registrar_categoria", methods=["GET"])
+def mostrar_formulario_registro_categoria():
+    return render_template("registrar_categoria.html")
+
+# Ruta para mostrar la página de registro de productos
+@app.route("/registrar_producto", methods=["GET"])
+def mostrar_formulario_registro_producto():
+    return render_template("registro_producto.html", categorias = categorias, bodegas = bodegas)
+
+# Ruta para mostrar la página de registro de proveedores
+@app.route("/registrar_proveedor", methods=["GET"])
+def mostrar_formulario_registro_proveedor():
+    return render_template("registro_proveedor.html")
+
+# Ruta para mostrar la página de registro de bodegas
+@app.route("/registrar_bodega", methods=["GET"])
+def mostrar_formulario_registro_bodega():
+    return render_template("registro_bodega.html")
+
+@app.route("/producto/retirar_stock", methods=["GET"])
+def mostrar_formulario_retiro_prod():
+    return render_template("retirar_producto.html", bodegas=bodegas)
 
 # Ruta para calcular el valor total del stock
 @app.route("/valor_total_stock", methods=["GET"])
