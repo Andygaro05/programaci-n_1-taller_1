@@ -23,6 +23,16 @@ def allowed_file(filename):
 def ruta_raiz():
     return render_template("index.html", productos = productos, proveedores = proveedores)
 
+#Menú principal para las opciones de los productos
+@app.route("/productos")
+def menu_productos():
+    return render_template("menu_productos.html") #botones: listado de productos, regsitrar producto, retirar prodcuto y valor total de stock
+
+#Página con todos los productos
+@app.route("/listado_productos")
+def lista_productos():
+    return render_template("listado_productos.html", productos=productos)
+
 #Página de producto
 @app.route("/producto/<int:pid>")
 def ruta_producto(pid):
@@ -30,8 +40,18 @@ def ruta_producto(pid):
         if pid == producto.id:
             return render_template("producto.html", producto=producto)
     return redirect("/")
-    
-#Página de proveedor
+
+#botones: listado de proveedores, registro de proveedor
+
+@app.route("/proveedores")
+def menu_proveedores():
+    return render_template("menu_proveedores.html")
+
+@app.route("/proveedores/listado_proveedores")
+def lista_proveedores():
+    return render_template("listado_proveedores.html", proveedores = proveedores)
+
+#Página de proveedor individual
 @app.route("/proveedor/<int:pid>")
 def ruta_proveedor(pid):
     for proveedor in proveedores:
@@ -39,7 +59,17 @@ def ruta_proveedor(pid):
             return render_template("proveedor.html", proveedor=proveedor)
     return redirect("/")
 
-#Página de categoria
+#Menú con opciones de categorias
+@app.route("/categorias")
+def menu_categorias():
+    return render_template("menu_categorias.html")
+
+#Vistazo de categorías
+@app.route("/categorias/listado_categorias")
+def lista_categorias():
+    return render_template("listado_categorias.html", categorias = categorias)
+
+#Página de categoria individual
 @app.route("/categoria/<int:pid>")
 def ruta_categoria(pid):
     for categoria in categorias:
@@ -47,6 +77,13 @@ def ruta_categoria(pid):
             return render_template("categoria.html", categoria = categoria)
     return redirect("/")
 
+@app.route("/bodegas")
+def menu_bodegas():
+    return render_template("menu_bodegas.html")
+
+@app.route("/bodegas/listado_bodegas")
+def lista_bodegas():
+    return render_template("listado_bodegas.html", bodegas = bodegas)
 
 #Página de bodega
 @app.route("/bodega/<int:pid>")
@@ -115,7 +152,7 @@ def registro_proveedor():
     return redirect("/")
 
 #registro bodega
-@app.route("/registrar_bodega", methods = ["POST"])
+@app.route("/bodegas/registro_bodega", methods = ["POST"])
 def registro_bodega():
     nombre = request.form.get("nombre")
     direccion = request.form.get("ubicacion")
@@ -126,7 +163,7 @@ def registro_bodega():
     return redirect("/")
 
 # Gestionar stock route
-@app.route("/gestionar_stock", methods=["GET", "POST"])
+@app.route("/bodegas/gestion_stock_bodega", methods=["GET", "POST"])
 def gestionar_stock():
     if request.method == "GET":
         # Renderiza la página inicial del formulario
@@ -148,7 +185,7 @@ def gestionar_stock():
 
 #MANEJO DE STOCK
 #añadir o eliminar productos
-@app.route("/gestion_stock_bodega/<int:producto_id>", methods= ["GET","POST"])
+@app.route("/bodegas/gestion_stock_bodega/<int:producto_id>", methods= ["GET","POST"])
 def productos_bodega(producto_id):
 # Ruta para agregar stock a un producto existente
     cantidad = int(request.form["cantidad"])
@@ -184,12 +221,6 @@ def retirar_stock(producto_id):
     flash("Producto no encontrado", "error")
     return redirect("/")
 
-@app.route("/stock_bodega", methods=["GET"])
-def stock_bodega():
-    # Renderiza la página inicial del formulario
-    return render_template("stock_bodega.html", bodegas=bodegas, productos=productos)
-
-
 # Ruta para mostrar la página de registro de categorías
 @app.route("/registrar_categoria", methods=["GET"])
 def mostrar_formulario_registro_categoria():
@@ -206,7 +237,7 @@ def mostrar_formulario_registro_proveedor():
     return render_template("registro_proveedor.html")
 
 # Ruta para mostrar la página de registro de bodegas
-@app.route("/registrar_bodega", methods=["GET"])
+@app.route("/bodegas/registro_bodega", methods=["GET"])
 def mostrar_formulario_registro_bodega():
     return render_template("registro_bodega.html")
 

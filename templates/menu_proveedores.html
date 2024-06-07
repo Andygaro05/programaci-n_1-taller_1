@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Punto Hogar{% endblock %}
+
+{% block contenido %}
+<html lang="es">
+<head>
+    <title>Menú Proveedores</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+</head>
+<body>
+    <div class="content">
+        <h1>Menú Proveedores</h1>
+        <div class="menu-Proveedores">
+            <ul>
+                <li><a href="/proveedores/listado_proveedores" class="boton-menu">Listado de proveedores</a></li>
+                <li><a href="/registrar_proveedor" class="boton-menu">Registrar proveedor</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

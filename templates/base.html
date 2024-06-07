@@ -1,26 +1,25 @@
 <!DOCTYPE html> 
 <html lang="es">
-    <head>
-        <title>{% block titulo %}{% endblock %}</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
-    </head>
-    <body>
-        <div class="header">
-            <header>
-                <nav>
-                    <ul>
-                        <li><a style="color: #ffff;" href="/">Punto Hogar</a></li>
-                        <li><a href="/registrar_producto" class="boton-registro">Registrar Producto</a></li>
-                        <li><a href="/registrar_categoria" class="boton-registro">Registrar Categoría</a></li>
-                        <li><a href="/registrar_proveedor" class="boton-registro">Registrar Proveedor</a></li>
-                        <li><a href="/registrar_bodega" class="boton-registro">Registrar Bodega</a></li>
-                        <li><a href="/gestionar_stock" class="boton-registro">Gestión inventario Bodegas</a></li>
-                    </ul>
-                </nav>
-            </header>
-        </div>
-        <div class="content">
-            {% block contenido %}{% endblock %}
-        </div>
-    </body>
+<head>
+    <title>{% block titulo %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+</head>
+<body>
+    <div class="header">
+        <header>
+            <nav>
+                <ul>
+                    <li><a style="color: #ffff;" href="/">Punto Hogar</a></li>
+                    <li><a href="/productos" class="boton-registro">Productos</a></li>
+                    <li><a href="/categorias" class="boton-registro">Categorías</a></li>
+                    <li><a href="/proveedores" class="boton-registro">Proveedores</a></li>
+                    <li><a href="/bodegas" class="boton-registro">Bodegas</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+    <div class="content">
+        {% block contenido %}{% endblock %}
+    </div>
+</body>
 </html>

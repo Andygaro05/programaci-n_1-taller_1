@@ -12,10 +12,17 @@
     <div style="height: 20px;"></div>
 
     <h3>El precio total de los productos es:</h3>
-    {% for i in range(longitud_lista) %}
-        <h3><a href="/producto/{{productos[i].id}}" style="color: #000000";> {{ productos[i].nombre }}</a>: ${{ "{:,}".format(valor_stock[i]) }}</h3>
-    {% endfor %}
+    <table border="1" style="margin: 0 auto;">
+        <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+        </tr>
+        {% for i in range(longitud_lista) %}
+        <tr>
+            <td><a href="/producto/{{productos[i].id}}" style="color: #000000;"> {{ productos[i].nombre }}</a></td>
+            <td>${{ "{:,}".format(valor_stock[i]) }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
 {% endblock %}
-
-<a href="/proveedor/{{ proveedor.nombre }}" style="color: #000000; text-decoration: none;">{{ proveedor.nombre }}</a>

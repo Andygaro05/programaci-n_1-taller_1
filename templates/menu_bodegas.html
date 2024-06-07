@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Punto Hogar{% endblock %}
+
+{% block contenido %}
+<html lang="es">
+<head>
+    <title>Menú Bodegas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+</head>
+<body>
+    <div class="content">
+        <h1>Menú Bodegas</h1>
+        <div class="menu-productos">
+            <ul>
+                <li><a href="/bodegas/listado_bodegas" class="boton-menu">Listado de Bodegas</a></li>
+                <li><a href="/bodegas/registro_bodega" class="boton-menu">Registrar Bodega</a></li>
+                <li><a href="/bodegas/gestion_stock_bodega" class="boton-menu">Gestion de stock bodega</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Punto Hogar - Bodegas{% endblock %}
+
+{% block contenido %}
+<table style="width: 80%; margin: 0 auto; margin-top: 20px; border-collapse: collapse; border: 1px solid #ddd;">
+    <thead>
+        <tr style="background-color: #19cc10; color: black; text-align: center; font-family: Roboto Condensed;">
+            <th style="padding: 10px;">Nombre de la Bodega</th>
+            <th style="padding: 10px;">Dirección</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for bodega in bodegas %}
+        <tr>
+            <td style="text-align: center; text-decoration-line: underline; padding: 10px;"><a href="/bodega/{{bodega.id}}" style="color: #000000;">{{ bodega.nombre_bodega }}</a></td>
+            <td style="text-align: center; padding: 10px;">{{ bodega.direccion_bodega }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

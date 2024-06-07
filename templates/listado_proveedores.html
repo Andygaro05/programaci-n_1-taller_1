@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Punto Hogar - Proveedores{% endblock %}
+
+{% block contenido %}
+<table style="width: 80%; margin: 0 auto; margin-top: 20px; border-collapse: collapse; border: 1px solid #ddd;">
+    <thead>
+        <tr style="background-color: rgb(240, 17, 154); color: whitesmoke;  text-align: center; font-family: Roboto Condensed;">
+            <th style="padding: 10px;">Nombre Proveedor</th>
+            <th style="padding: 10px;">Teléfono</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for proveedor in proveedores %}
+        <tr>
+            <td style="text-align: center; text-decoration-line: underline; padding: 10px;"><a href="/proveedor/{{proveedor.id}}" style="color: #000000;">{{ proveedor.nombre }}</a></td>
+            <td style="text-align: center; padding: 10px;">{{ proveedor.telefono }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
