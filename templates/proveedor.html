@@ -1,3 +1,4 @@
+<!-- proveedor.html -->
 {% extends 'base.html' %}
 
 {% block titulo %}Punto Hogar{% endblock %}
@@ -10,7 +11,7 @@
     <table align="center">
         <img src="/static/imagenes/proveedor.png" width="15%">
         <h1>
-            <a href="/proveedor/{{ proveedor.nombre }}" style="color: #000000; text-decoration: none;">{{ proveedor.nombre }}</a>
+            <a href="/proveedor/{{ proveedor.id }}" style="color: #000000; text-decoration: none;">{{ proveedor.nombre }}</a>
         </h1>
         <tr>
             <td>
@@ -19,10 +20,18 @@
                 <h3>Correo electrónico: {{ proveedor.direccion }}</h3>
                 <h3>Productos: </h3>
                 {% for producto in proveedor.productos %}
-                <h3 style="color: #000000; padding: 15px;"> <a href="/producto/{{ producto.id }}" style="color: red;"> {{producto.nombre }} </a> </h3>
+                <div style="display: flex; align-items: center;">
+                    <h3 style="color: #000000; padding: 15px;">
+                        <a href="/producto/{{ producto.id }}" style="color: red;"> {{ producto.nombre }} </a>
+                    </h3>
+                    <form action="/proveedor/{{ proveedor.id }}/eliminar_producto/{{ producto.id }}" method="POST" style="margin-left: 10px;">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                </div>
                 {% endfor %}
             </td>
         </tr>
     </table>
-    </div>
+</div>
 {% endblock %}
+

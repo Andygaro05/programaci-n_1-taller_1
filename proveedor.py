@@ -1,17 +1,18 @@
-#proveedor.py
 from producto import productos
+
 class Proveedor:
-    id = 1
+    id_counter = 1
+
     def __init__(self, nombre, telefono, direccion):
+        self.id = Proveedor.id_counter
+        Proveedor.id_counter += 1
         self.nombre = nombre
         self.telefono = telefono
         self.direccion = direccion
         self.productos = []
-        self.id = Proveedor.id
-        Proveedor.id += 1
 
     def __repr__(self):
-        return f"{self.productos}"
+        return f"Proveedor({self.nombre}, {self.telefono}, {self.direccion}, {self.productos})"
 
     def agregar_producto(self, producto):
         if producto not in self.productos:
@@ -20,34 +21,6 @@ class Proveedor:
     def eliminar_producto(self, producto):
         if producto in self.productos:
             self.productos.remove(producto)
-
-    def consultar_categoria(self, categoria):
-        productos_categoria = []
-        for producto in self.productos:
-            if producto.categoria == categoria:
-                productos_categoria.append(producto)
-        return productos_categoria
-
-    def mostrar_producto(self, producto):
-        print(f"Nombre: {producto.nombre}")
-        print(f"Descripción: {producto.descripcion}")
-        print(f"Precio: {producto.precio}")
-
-    def mostrar_informacion(self):  #describe los datos del proveedor
-      print(f"**Proveedor:** {self.nombre}")
-      print(f"Teléfono: {self.telefono}")
-      print(f"Correo electrónico: {self.email}")
-
-    def mostrar_producto(self, producto):
-      if producto not in self.productos:    #verifica que el producto exista
-        raise ValueError(f"El producto {producto.nombre} no se encuentra en la lista de productos del proveedor {self.nombre}")
-
-      print(f"**Producto:** {producto.nombre}")
-      print(f"Descripción: {producto.descripcion}")
-      print(f"Precio: {producto.precio}")
-
-    def ver_id(self):
-        print(f"{self.nombre}: ID {self.id}")
 
 #Creación de los proveedores
 proveedores = [Proveedor("Maderas Anita", 3123800910, "maderas_anita@gmail.com"), 

@@ -10,15 +10,33 @@
     <table align="center">
         <img src="/static/imagenes/categoria.jpg" width="3%">
         <h1>
-            <a href="/categoria/{{ categoria.nombre_categoria }}" style="color: #000000; text-decoration: none;">
+            <a href="/categoria/{{ categoria.id }}" style="color: #000000; text-decoration: none;">
                 {{ categoria.nombre_categoria }}</a>
         </h1>
     </table>
+    <tr>
+        <td>
+            <h2>Descripción: {{ categoria.descripcion }}</h2>
+        </td>
+    </tr>
+    <h2>Productos:</h2>
+    <table style="width: 100%; margin: 0 auto;">
         <tr>
+            <th style="text-align: center; padding: 12px;">Nombre Producto</th>
+            <th style="text-align: center; padding: 12px;">Acciones</th>
+        </tr>
+        {% for producto in categoria.productos %}
+        <tr>
+            <td style="color: #000000; padding: 15px;">
+                <a href="/producto/{{ producto.id }}" style="color: #946300;"> {{ producto.nombre }} </a>
+            </td>
             <td>
-                <h2>Descripción: {{ categoria.descripcion }}</h2>
+                <form action="/categoria/{{ categoria.id }}/eliminar_producto/{{ producto.id }}" method="POST">
+                    <button type="submit">Eliminar</button>
+                </form>
             </td>
         </tr>
-            <h2>Productos: {{ categoria.productos }} </h2>
-    </div>
+        {% endfor %}
+    </table>
+</div>
 {% endblock %}

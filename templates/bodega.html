@@ -9,29 +9,51 @@
 <div style="text-align: center; color: #000000;">
     <img src="/static/imagenes/bodega.png" width="3.5%">
     <h1>
-        <a href="/bodega/{{ bodega.nombre_bodega }}" style="color: #000000; text-decoration: none;">
+        <a href="/bodega/{{ bodega.id }}" style="color: #000000; text-decoration: none;">
             {{ bodega.nombre_bodega }}</a>
-        </h1>
+    </h1>
+    <tr>
+        <td>
+            <h2>Dirección: {{ bodega.direccion_bodega }}</h2>
+        </td>
+        <td>
+            <h2>Capacidad máxima: {{ bodega.capacidad_maxima }}</h2>
+        </td>
+    </tr>
+    <table style="width: 100%; margin: 0 auto;">
         <tr>
-            <td>
-                <h2>Dirección: {{ bodega.direccion_bodega }}</h2>
+            <td colspan="3" style="background-color: #EF9F00; color: white; text-align: center; padding: 16px; font-family: Roboto Condensed; font-size: 20px;"><b>Inventario de la bodega</b></td>
+        </tr>
+        <tr>
+            <th style="text-align: center; padding: 12px;">Nombre Producto</th>
+            <th style="text-align: center; padding: 12px;">Cantidad</th>
+            <th style="text-align: center; padding: 12px;">Acciones</th>
+        </tr>
+        {% for producto in bodega.productos %}
+        <tr>
+            <td style="color: #000000; padding: 15px;">
+                <a href="/producto/{{ producto.id }}" style="color: #946300;"> {{ producto.nombre }} </a>
             </td>
+            <td style="color: #000000; padding: 20px;"> {{ producto.cantidad }} </td>
             <td>
-                <h2>Capacidad máxima: {{ bodega.capacidad_maxima }}</h2>
+                <form action="/bodega/{{ bodega.id }}/retirar_producto/{{ producto.id }}" method="POST" onsubmit="return validarCantidad({{ producto.cantidad }}, this)">
+                    <input type="number" name="cantidad" min="1" required>
+                    <button type="submit">Retirar</button>
+                </form>
             </td>
         </tr>
-        <table style="width: 100%; margin: 0 auto;">
-            <tr>
-                <td colspan="2" style="background-color: #EF9F00; color: white; text-align: center; padding: 16px; font-family: Roboto Condensed; font-size: 20px;"><b>Inventario de la bodega</b></td>
-            </tr>
-            <tr>
-                <th style="text-align: center; padding: 12px;">Nombre Producto</th>
-                <th style="text-align: center; padding: 12px;">Cantidad</th>
-            </tr>
-            {% for producto in bodega.productos %}
-            <td style="color: #000000; padding: 15px;"> <a href="/producto/{{ producto.id }}" style="color: #946300;"> {{producto.nombre }} </a> </td>
-            <td style="color: #000000; padding: 20px;"> {{ producto.cantidad }} </td>
-            {% endfor %}
-        </table>
-    </div>
+        {% endfor %}
+    </table>
+</div>
+
+<script>
+function validarCantidad(stock, form) {
+    const cantidad = form.cantidad.value;
+    if (parseInt(cantidad) > stock) {
+        alert('La cantidad a retirar excede el stock disponible.');
+        return false;
+    }
+    return true;
+}
+</script>
 {% endblock %}

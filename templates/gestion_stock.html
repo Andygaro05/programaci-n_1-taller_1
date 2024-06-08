@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestionar Stock</title>
+</head>
+<body>
+    <h1>Gestionar Stock de {{ producto.nombre }}</h1>
+    
+    <form action="/agregar_stock/{{ producto.id }}" method="POST">
+        <label for="cantidad">Cantidad a agregar:</label>
+        <input type="number" id="cantidad" name="cantidad" required>
+        <button type="submit">Agregar Stock</button>
+    </form>
+    
+    <form action="/retirar_stock/{{ producto.id }}" method="POST">
+        <label for="cantidad">Cantidad a retirar:</label>
+        <input type="number" id="cantidad" name="cantidad" required>
+        <button type="submit">Retirar Stock</button>
+    </form>
+</body>
+</html>
