@@ -51,8 +51,8 @@ Para ejecutar este proyecto en tu máquina local, sigue estos pasos:
 
 Primero, clona el repositorio en tu máquina local usando el siguiente comando:
 ```bash
-git clone https://github.com/tu_usuario/tu_repositorio.git
-cd tu_repositorio
+git clone https://github.com/Andygaro05/programaci-n_1-taller_1.git
+cd programaci-n_1-taller_1
 ```
 
  ### 2. Crear un entorno virtual
