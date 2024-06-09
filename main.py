@@ -5,11 +5,11 @@ from categoria import Categoria, categorias
 from bodega import Bodega, bodegas
 from flask import Flask, render_template, redirect, request, flash, url_for
 
-#aplicación
+# Aplicación
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'
 
-#Configuración de la librería para guardar las imágenes que se suban en la página de registro de productos
+# Configuración de la librería para guardar las imágenes que se suban en la página de registro de productos
 UPLOAD_FOLDER = 'static/fotos'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -18,43 +18,43 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-#Rutas de la app
+# Rutas de la app
 @app.route("/")
 def ruta_raiz():
-    return render_template("index.html", productos = productos, proveedores = proveedores)
+    return render_template("index.html", productos=productos, proveedores=proveedores)
 
-#Menú principal para las opciones de los productos
+# Menú principal para las opciones de los productos
 @app.route("/productos")
 def menu_productos():
     return render_template("menu_productos.html") #botones: listado de productos, registrar producto, retirar producto y valor total de stock
 
-#Página con todos los productos
+# Página con todos los productos
 @app.route("/listado_productos")
 def lista_productos():
     return render_template("listado_productos.html", productos=productos)
 
-#Página de producto
 @app.route("/producto/<int:pid>")
 def ruta_producto(pid):
-    for producto in productos:
-        if pid == producto.id:
-            return render_template("producto.html", producto=producto)
-    return redirect("/")
-
-"""@app.route("/proveedores")
-def menu_proveedores():
-    return render_template("menu_proveedores.html")"""
+    producto = next((producto for producto in productos if producto.id == pid), None)
+    if producto:
+        proveedor_del_producto = None
+        for proveedor in proveedores:
+            if producto in proveedor.productos:
+                proveedor_del_producto = proveedor
+                break
+        if proveedor_del_producto:
+            return render_template("producto.html", producto=producto, proveedor=proveedor_del_producto)
 
 @app.route("/proveedores/listado_proveedores")
 def lista_proveedores():
-    return render_template("listado_proveedores.html", proveedores = proveedores)
+    return render_template("listado_proveedores.html", proveedores=proveedores)
 
-#Página de proveedor individual
+# Página de proveedor individual
 @app.route("/proveedor/<int:pid>")
 def ruta_proveedor(pid):
     for proveedor in proveedores:
         if pid == proveedor.id:
-            return render_template("proveedor.html", proveedor=proveedor)
+            return render_template("proveedor.html", proveedor=proveedor, productos=productos)
     return redirect("/")
 
 @app.route("/categorias")
@@ -63,14 +63,14 @@ def menu_categorias():
 
 @app.route("/categorias/listado_categorias")
 def lista_categorias():
-    return render_template("listado_categorias.html", categorias = categorias)
+    return render_template("listado_categorias.html", categorias=categorias)
 
-#Página de categoria individual
+# Página de categoria individual
 @app.route("/categoria/<int:pid>")
 def ruta_categoria(pid):
     for categoria in categorias:
         if pid == categoria.id:
-            return render_template("categoria.html", categoria = categoria)
+            return render_template("categoria.html", categoria=categoria)
     return redirect("/")
 
 @app.route("/bodegas")
@@ -79,17 +79,17 @@ def menu_bodegas():
 
 @app.route("/bodegas/listado_bodegas")
 def lista_bodegas():
-    return render_template("listado_bodegas.html", bodegas = bodegas)
+    return render_template("listado_bodegas.html", bodegas=bodegas)
 
-#Página de bodega
+# Página de bodega
 @app.route("/bodega/<int:pid>")
 def ruta_bodega(pid):
     for bodega in bodegas:
         if pid == bodega.id:
-            return render_template("bodega.html", bodega = bodega, productos = productos)
+            return render_template("bodega.html", bodega=bodega, productos=productos)
     return redirect("/")
 
-#Página para registrar productos
+# Página para registrar productos
 @app.route("/registrar_producto", methods=["POST"])
 def registrar_producto():
     nombre = request.form.get("nombre")
@@ -98,6 +98,7 @@ def registrar_producto():
     cantidad = int(request.form.get("stock"))
     categoria_nombre = request.form.get("categoria")
     bodega_asignada = request.form.get("bodega")
+    proveedor_nombre = request.form.get("proveedor")
     foto = request.files.get("foto")
 
     if foto and allowed_file(foto.filename):
@@ -109,27 +110,54 @@ def registrar_producto():
 
     # Buscar la categoría por su nombre
     categoria = next((c for c in categorias if c.nombre_categoria == categoria_nombre), None)
-    
+    proveedor = next((p for p in proveedores if p.nombre == proveedor_nombre), None)
+
     if categoria is None:
-        return "Error: La categoría no existe"
+        return "Error: La categoría no existe"    
     
     # Crear una nueva instancia de Producto y agregarla a la lista de productos
     nuevo_producto = Producto(nombre=nombre, descripcion=descripcion, precio=precio, categoria=categoria)
     productos.append(nuevo_producto)
     
-    #Asignarle a una bodega el producto
+    for proveedor in proveedores:
+        if proveedor.nombre == proveedor_nombre:
+            proveedor.agregar_producto(nuevo_producto)
+    
+    # Asignarle a una bodega el producto
     for bodega in bodegas:
         if bodega.nombre_bodega == bodega_asignada:
             bodega.agregar_producto(nuevo_producto, cantidad)
 
     return redirect("/")
 
-@app.route("/registrar_categoria", methods = ["POST"])
+# Ruta para agregar un producto a una bodega
+@app.route("/bodega/<int:bodega_id>/agregar_producto", methods=["POST"])
+def agregar_producto_bodega(bodega_id):
+    producto_id = request.form.get("producto_id")
+    if not producto_id:
+        flash("Debe seleccionar un producto", "error")
+        return redirect(f"/bodega/{bodega_id}")
+
+    bodega = next((b for b in bodegas if b.id == bodega_id), None)
+    producto = next((p for p in productos if p.id == int(producto_id)), None)
+    
+    if bodega and producto:
+        if producto not in bodega.productos:
+            bodega.productos.append(producto)
+            flash("Producto agregado a la bodega exitosamente", "success")
+        else:
+            flash("El producto ya está en la bodega", "error")
+    else:
+        flash("Bodega o producto no encontrado", "error")
+    
+    return redirect(url_for("lista_bodegas"))  # Redirige a la lista de bodegas
+
+@app.route("/registrar_categoria", methods=["POST"])
 def registro_categoria():
     nombre = request.form.get("nombre")
     descripcion = request.form.get("descripcion")
 
-    nueva_categoria = Categoria(nombre_categoria= nombre, descripcion= descripcion)
+    nueva_categoria = Categoria(nombre_categoria=nombre, descripcion=descripcion)
     categorias.append(nueva_categoria)
 
     return redirect("/")
@@ -198,7 +226,7 @@ def gestionar_stock():
     else:
         return redirect("/")
 
-#MANEJO DE STOCK
+# MANEJO DE STOCK
 # Ruta para mostrar formularios de agregar y retirar stock
 @app.route("/gestion_stock/<int:producto_id>", methods=["GET"])
 def mostrar_formulario_stock(producto_id):
@@ -243,15 +271,11 @@ def mostrar_formulario_registro_categoria():
 
 @app.route("/registrar_producto", methods=["GET"])
 def mostrar_formulario_registro_producto():
-    return render_template("registro_producto.html", categorias=categorias, bodegas=bodegas)
-
-"""@app.route("/registrar_proveedor", methods=["GET"])
-def mostrar_formulario_registro_proveedor():
-    return render_template("registro_proveedor.html")"""
+    return render_template("registro_producto.html", categorias=categorias, bodegas=bodegas, proveedores = proveedores)
 
 @app.route("/bodegas/registro_bodega", methods=["GET"])
 def mostrar_formulario_registro_bodega():
-    return render_template("registro_bodega.html", productos = productos)
+    return render_template("registro_bodega.html", productos=productos)
 
 @app.route("/producto/retirar_stock", methods=["GET"])
 def mostrar_formulario_retiro_prod():
@@ -318,6 +342,28 @@ def eliminar_producto_de_proveedor(proveedor_id, producto_id):
     
     return redirect(f"/proveedor/{proveedor_id}")
 
+# Ruta para agregar un producto a la lista de productos suministrados por un proveedor existente
+@app.route("/proveedor/<int:proveedor_id>/agregar_producto", methods=["POST"])
+def agregar_producto_a_proveedor(proveedor_id):
+    producto_id = request.form.get("producto_id")
+    if not producto_id:
+        flash("Debe seleccionar un producto", "error")
+        return redirect(f"/proveedor/{proveedor_id}")
+
+    proveedor = next((p for p in proveedores if p.id == proveedor_id), None)
+    producto = next((p for p in productos if p.id == int(producto_id)), None)
+    
+    if proveedor and producto:
+        if producto not in proveedor.productos:
+            proveedor.agregar_producto(producto)
+            flash("Producto agregado al proveedor exitosamente", "success")
+        else:
+            flash("El producto ya está en la lista del proveedor", "error")
+    else:
+        flash("Proveedor o producto no encontrado", "error")
+    
+    return redirect(f"/proveedor/{proveedor_id}")
+
 # Ruta para retirar un producto de la lista de productos almacenados en una bodega
 @app.route("/bodega/<int:bodega_id>/retirar_producto/<int:producto_id>", methods=["POST"])
 def retirar_producto_de_bodega(bodega_id, producto_id):
@@ -340,6 +386,37 @@ def retirar_producto_de_bodega(bodega_id, producto_id):
     
     return redirect(f"/bodega/{bodega_id}")
 
-#Programa principal
+
+@app.route("/informe/stock_total")
+def informe_stock_total():
+    total_stock = sum(producto.cantidad for producto in productos)
+    return render_template("informe_stock_total.html", total_stock=total_stock)
+
+@app.route("/informe/stock_categoria")
+def informe_stock_categoria():
+    stock_por_categoria = {}
+    for categoria in categorias:
+        stock_categoria = sum(producto.cantidad for producto in productos if producto.categoria == categoria)
+        stock_por_categoria[categoria.nombre_categoria] = stock_categoria
+    return render_template("informe_stock_categoria.html", stock_por_categoria=stock_por_categoria)
+
+@app.route("/informe/stock_proveedor")
+def informe_stock_proveedor():
+    stock_por_proveedor = {}
+    for proveedor in proveedores:
+        stock_proveedor = sum(producto.cantidad for producto in proveedor.productos)
+        stock_por_proveedor[proveedor.nombre] = stock_proveedor
+    return render_template("informe_stock_proveedor.html", stock_por_proveedor=stock_por_proveedor)
+
+@app.route("/informe/stock_bodega")
+def informe_stock_bodega():
+    stock_por_bodega = {}
+    for bodega in bodegas:
+        stock_bodega = sum(producto.cantidad for producto in bodega.productos)
+        stock_por_bodega[bodega.nombre_bodega] = stock_bodega
+    return render_template("informe_stock_bodega.html", stock_por_bodega=stock_por_bodega)
+
+
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)
+    app.run(debug=True)
