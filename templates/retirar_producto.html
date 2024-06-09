@@ -29,7 +29,7 @@
 </div>
 
 <script>
-function updateProducts() {
+    function updateProducts() {
     var bodegaSelect = document.getElementById("bodega");
     var bodegaId = bodegaSelect.options[bodegaSelect.selectedIndex].getAttribute("data-id");
     var nombreSelect = document.getElementById("nombre");
@@ -51,4 +51,4 @@ function updateProducts() {
         .catch(error => console.error('Error fetching products:', error));
 }
 </script>
-{% endblock %}
+    {% endblock %}

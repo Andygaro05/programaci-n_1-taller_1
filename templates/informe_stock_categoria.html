@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Informe de Stock por Categoría{% endblock %}
+
+{% block contenido %}
+<div class="container">
+    <h1>Informe de Stock por Categoría</h1>
+    <div class="list-group">
+        {% for categoria, stock in stock_por_categoria.items() %}
+            <a href="#" class="list-group-item list-group-item-action">
+                <h5 class="mb-1">{{ categoria }}</h5>
+                <p class="mb-1">Stock: {{ stock }}</p>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

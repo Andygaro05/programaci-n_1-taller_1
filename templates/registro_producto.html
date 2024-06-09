@@ -39,6 +39,14 @@
             </select>
         </div>
         <div class="form-group">
+            <label for="proveedor">Proveedor:</label><br>
+            <select id="proveedor" name="proveedor" required>
+                {% for proveedor in proveedores %}
+                    <option value="{{ proveedor.nombre }}">{{ proveedor.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
             <label for="foto">Foto del producto:</label><br>
             <input type="file" id="foto" name="foto" accept="image/*" required>
         </div>

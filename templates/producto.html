@@ -1,30 +1,33 @@
 {% extends 'base.html' %}
 
-{% block titulo %}Punto Hogar{% endblock %} 
+{% block title %}Punto Hogar{% endblock %}
 
 {% block contenido %}
-    <style>
-        .precio-verde {
-            color: green;
-        }
-        </style>
-        <table align="center">
-        <tr>
-            <td>
-                <a href="{{ url_for('ruta_raiz') }}"><button>Inicio</button></a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <img src="{{ url_for('static', filename='fotos/') }}{{ producto.id }}.png" width="256">
-            </td>
-            <td>
-                <h2>{{ producto.categoria }} > {{ producto}}</h2>
-                <h1>{{ producto.nombre }}</h1>
-                <h3>{{ producto.descripcion}}</h3>
-                <h2 class="precio-verde">${{ "{:,}".format(producto.precio)}}</h2>
-                <h3>Cantidad: {{ producto.cantidad }}</h3>
-            </td>
-        </tr>
-    </table>
+<style>
+    .precio-verde {
+        color: green;
+    }
+</style>
+<table align="center">
+    <tr>
+        <td>
+            <a href="{{ url_for('ruta_raiz') }}"><button>Inicio</button></a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img src="{{ url_for('static', filename='fotos/') }}{{ producto.id }}.png" width="256">
+        </td>
+        <td>
+            <h2>Categoría: {{ producto.categoria }}</h2> <!-- Etiqueta para la categoría -->
+            <h1>{{ producto.nombre }}</h1>
+            <h2> Proveedor: {{ proveedor.nombre }}</h2>
+            <h3>Descripción: {{ producto.descripcion }}</h3> <!-- Etiqueta para la descripción -->
+            <h2 class="precio-verde">${{ "{:,.2f}".format(producto.precio) }}</h2>
+            <h3>Cantidad: {{ producto.cantidad }}</h3>
+        </td>
+    </tr>
+</table>
 {% endblock %}
+
+
