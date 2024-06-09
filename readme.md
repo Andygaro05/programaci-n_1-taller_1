@@ -71,7 +71,7 @@ Activa el entorno virtual creado. Dependiendo de tu sistema operativo, utiliza u
 Con el entorno virtual activado, instala las dependencias necesarias para el proyecto: pip install -r requirements.txt
 
 ### 5.Ejecutar la aplicación
-Finalmente, ejecuta la aplicación usando el siguiente comando: python app.py
+Finalmente, ejecuta la aplicación usando el siguiente comando: python main.py
 Esto iniciará el servidor web. Abre tu navegador y navega a http://localhost:5000 para ver la aplicación en acción.
 
 ### Consulta el código fuente para comprender en detalle el funcionamiento de la aplicación.
