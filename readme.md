@@ -1,8 +1,8 @@
 
-#**¡Bienvenido a tu tienda virtual!**
+# **¡Bienvenido a tu tienda virtual!**
 Este proyecto en Python te permite gestionar una tienda virtual completa con productos, proveedores, categorías, bodegas y control de stock.
 
-##**Funcionalidades:**
+## **Funcionalidades:**
 
 ## Productos:
 + Registrar productos con nombre, descripción, precio, cantidad, categoría y bodega.
